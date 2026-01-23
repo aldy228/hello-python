@@ -1,5 +1,5 @@
-age = 36
-#This will produce an error:
+age = str(36) #Use str to avoid the error
+#This will produce an error if age is int variable:
 txt = "My name is John, I am " + age
 print(txt)
 cat = "Kitty"
