@@ -1,3 +1,4 @@
 x = 10
 name = "Alice"
-print(x, name)
+height = 175
+print(x, name, height)#Added one more variable
