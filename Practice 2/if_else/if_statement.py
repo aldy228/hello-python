@@ -7,10 +7,10 @@ number = 15
 if number > 0: #checking if number is positive
   print("The number is positive")
 
-a = 33
-b = 200
-if b > a: #idententation error example
-print("b is greater than a") # you will get an error
+#a = 33
+#b = 200
+#if b > a: #idententation error example
+#print("b is greater than a") # you will get an error
 
 age = 20
 if age >= 18: #multiple statements in if block
