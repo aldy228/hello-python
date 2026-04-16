@@ -220,69 +220,119 @@ def reset_database():
     # Confirm to user
     print("✓ Database reset successfully!")
 
+def search_contacts():
+    """
+    Search for contacts by name or phone prefix.
+    """
+    print("\n========== SEARCH CONTACTS ==========")
+    print("1. Search by name")
+    print("2. Search by phone prefix (starts with)")
+    print("0. Back to menu")
+    print("=====================================")
+    
+    search_choice = input("Choose filter type: ")
+    
+    conn = get_connection()
+    cur = conn.cursor()
+    
+    results = None
+    
+    # ========== OPTION 1: SEARCH BY NAME ==========
+    if search_choice == "1":
+        search_term = input("Enter name (or part of it): ")
+        
+        # ILIKE = case-insensitive match (John, john, JOHN all work)
+        # %search_term% = matches anywhere in the name
+        cur.execute("SELECT * FROM contacts WHERE name ILIKE %s", (f"%{search_term}%",))
+        results = cur.fetchall()
+        print(f"\n🔍 Searching for name containing: '{search_term}'")
+    
+    # ========== OPTION 2: SEARCH BY PHONE PREFIX ==========
+    elif search_choice == "2":
+        prefix = input("Enter phone prefix (starts with): ")
+        
+        # prefix% = matches phones that START with this number
+        cur.execute("SELECT * FROM contacts WHERE phone LIKE %s", (f"{prefix}%",))
+        results = cur.fetchall()
+        print(f"\n🔍 Searching for phone starting with: '{prefix}'")
+    
+    # ========== OPTION 0: BACK TO MENU ==========
+    elif search_choice == "0":
+        conn.close()
+        return
+    
+    # ========== INVALID CHOICE ==========
+    else:
+        print("❌ Invalid choice!")
+        conn.close()
+        return
+    
+    # ========== DISPLAY RESULTS ==========
+    print("\n" + "=" * 50)
+    
+    if not results:
+        print("❌ No contacts found matching your criteria.")
+    else:
+        print(f"✅ Found {len(results)} contact(s):")
+        print("=" * 50)
+        print(f"{'ID':<5} | {'Name':<20} | {'Phone':<15}")
+        print("=" * 50)
+        for row in results:
+            # row[0]=id, row[1]=name, row[2]=phone
+            print(f"{row[0]:<5} | {row[1]:<20} | {row[2]:<15}")
+        print("=" * 50)
+    
+    conn.close()
 
 # ============================================================================
 # -------------------------- USER INTERFACE (MENU) ---------------------------
 # ============================================================================
 
 def menu():
-    """
-    Main program loop - displays menu and handles user choices.
-    Runs until user chooses to exit (option 0).
-    """
-    # Create the database table on startup (if it doesn't exist)
     create_table()
 
-    # Infinite loop - keeps showing menu until user exits
     while True:
-        # Display menu options
         print("\n========== PHONEBOOK MENU ==========")
         print("1. Add contact")
-        print("2. Show contacts")
+        print("2. Show all contacts")
         print("3. Update contact")
         print("4. Delete contact")
         print("5. Import CSV")
-        print("6. Reset database")
+        print("6. Search contacts")     
+        print("7. Reset database")
         print("0. Exit")
         print("====================================")
 
-        # Get user's choice as a string
         choice = input("Choose: ")
 
-        # Handle each menu option
         if choice == "1":
-            # ADD CONTACT
             name = input("Name: ")
             phone = input("Phone: ")
             insert_contact(name, phone)
             print("✓ Contact added successfully!")
 
         elif choice == "2":
-            # SHOW ALL CONTACTS
             show_contacts()
 
         elif choice == "3":
-            # UPDATE CONTACT
             name = input("Name: ")
             phone = input("New phone: ")
             update_contact(name, phone)
             print("✓ Contact updated successfully!")
 
         elif choice == "4":
-            # DELETE CONTACT
             name = input("Name: ")
             delete_contact(name)
             print("✓ Contact deleted successfully!")
 
         elif choice == "5":
-            # IMPORT FROM CSV FILE
-            # Path is relative to where you run the program from
             import_from_csv("Practice 7/contacts.csv")
             print("✓ Import completed!")
 
-        elif choice == "6":
-            # RESET DATABASE - DANGEROUS OPERATION!
-            # Ask for confirmation before proceeding
+        elif choice == "6":             
+            search_contacts()
+
+        elif choice == "7":
             confirm = input("⚠️  Are you sure? This will delete ALL contacts! (yes/no): ")
             if confirm.lower() == "yes":
                 reset_database()
@@ -290,13 +340,11 @@ def menu():
                 print("Reset cancelled.")
 
         elif choice == "0":
-            # EXIT PROGRAM
             print("Goodbye! 👋")
-            break  # Exit the while loop
+            break
 
         else:
-            # Invalid input - not 0-6
-            print("❌ Invalid choice. Please enter 0-6.")
+            print("❌ Invalid choice. Please enter 0-7.")
 
 
 # ============================================================================
