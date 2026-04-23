@@ -45,10 +45,21 @@ class MusicPlayer:
             self.play()
     
     def get_current_name(self):
-        """Get current track filename"""
+        """Get current track filename without extension"""
         if self.tracks:
-            return os.path.basename(self.tracks[self.current_index])
+            filename = os.path.basename(self.tracks[self.current_index])
+            # Remove extension
+            name = os.path.splitext(filename)[0]
+            # Clean up: replace dashes and underscores with spaces
+            name = name.replace('-', ' ').replace('_', ' ').title()
+            return name
         return "No tracks loaded"
+    
+    def get_current_author(self):
+        """Get author (default to Unknown)"""
+        # For now, always return "Unknown"
+        # Later you can extract metadata from MP3 tags
+        return "Unknown"
     
     def get_track_count(self):
         """Get total number of tracks"""
