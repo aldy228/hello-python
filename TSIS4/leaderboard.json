@@ -1,0 +1,14 @@
+[
+  {
+    "username": "test",
+    "score": 120,
+    "level_reached": 3,
+    "played_at": "2026-05-03 21:15"
+  },
+  {
+    "username": "test",
+    "score": 0,
+    "level_reached": 1,
+    "played_at": "2026-05-03 21:13"
+  }
+]
