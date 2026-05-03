@@ -1,0 +1,67 @@
+[
+    {
+        "name": "Rozalina",
+        "surname": "Galiyeva",
+        "email": "rozalina@gmail.com",
+        "birthday": "2006-04-01",
+        "group": "Friend",
+        "phones": [
+            {
+                "phone": "+77770000001",
+                "type": "mobile"
+            }
+        ]
+    },
+    {
+        "name": "Lera",
+        "surname": "Vitiker",
+        "email": "lera@gmail.com",
+        "birthday": "2005-02-14",
+        "group": "Friend",
+        "phones": [
+            {
+                "phone": "+77770000002",
+                "type": "mobile"
+            }
+        ]
+    },
+    {
+        "name": "Aidana",
+        "surname": "Serikova",
+        "email": "aidana@work.kz",
+        "birthday": "2004-11-20",
+        "group": "Work",
+        "phones": [
+            {
+                "phone": "+77770000003",
+                "type": "work"
+            }
+        ]
+    },
+    {
+        "name": "Dayana",
+        "surname": "Kairolla",
+        "email": "dayana@gmail.com",
+        "birthday": "2006-06-10",
+        "group": "Family",
+        "phones": [
+            {
+                "phone": "+77770000004",
+                "type": "mobile"
+            }
+        ]
+    },
+    {
+        "name": "Kamilla",
+        "surname": "Kim",
+        "email": "kamilla@mail.com",
+        "birthday": "2005-09-03",
+        "group": "Other",
+        "phones": [
+            {
+                "phone": "+77770000005",
+                "type": "home"
+            }
+        ]
+    }
+]
