@@ -1,20 +1,15 @@
-# 👇 MUST be at the very top, before ANY other imports
 import os
-os.environ['PYTHONUTF8'] = '1'
-os.environ['PGCLIENTENCODING'] = 'UTF8'
-
-import psycopg2
+import psycopg  # 👈 Changed from psycopg2
 import re
-# (remove `from dotenv import load_dotenv` and `load_dotenv()` completely)
 
+# 👇 Hardcoded to bypass Windows encoding bugs entirely
 def get_connection():
-    return psycopg2.connect(
+    return psycopg.connect(
         host="localhost",
         user="postgres",
         password="1234",
-        dbname="your_db",   # 👈 Ensure this matches your actual DB name
-        port=5432,
-        client_encoding='UTF8'  # Forces libpq to use UTF-8
+        dbname="your_db",   # 👈 Change to your actual DB name
+        port=5432
     )
 
 def init_procedures():
@@ -71,7 +66,7 @@ def show_paginated():
     for row in rows: print(row)
 
 def menu():
-    init_procedures()  # Safe now
+    init_procedures()
     while True:
         print("\n1.🔍 Search\n2.➕ Insert/Update\n3.📦 Bulk Insert\n4.🗑️ Delete\n5.📄 Paginated\n6.🚪 Exit")
         c = input("Choose: ").strip()

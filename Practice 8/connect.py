@@ -1,5 +1,5 @@
 import os
-import psycopg2  # 👈 THIS WAS MISSING
+import psycopg2  
 from dotenv import load_dotenv
 
 # Automatically finds .env in the current directory or parent dirs
@@ -11,5 +11,5 @@ def get_connection():
         user=os.getenv("USER", "postgres"),
         password=os.getenv("PASSWORD"),
         dbname=os.getenv("DB_NAME"),
-        port=int(os.getenv("PORT", 5432))  # ⚠️ psycopg2 requires port as an int
+        port=int(os.getenv("PORT", 5432))  # psycopg2 requires port as an int
     )
